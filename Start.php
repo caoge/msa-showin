@@ -19,5 +19,11 @@ switch ($component) {
     case 'Container':
         $server = new \Showin\Component\Container\ContainerServer($host, $port);
         break;
+    case 'Proxy':
+        $server = new \Showin\Component\Proxy\ProxyServer($host, $port);
+        break;
+    case 'Registry':
+        $server = new \Showin\Component\Registry\RegistryServer($host, $port);
+        break;
 }
 $server->start();
