@@ -9,7 +9,7 @@
 namespace Showin\Contract\Format;
 
 
-class Protobuf
+class Protobuf implements IFormatInterface
 {
 
 }
