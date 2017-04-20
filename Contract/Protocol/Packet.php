@@ -11,5 +11,13 @@ namespace Showin\Contract\Protocol;
 
 class Packet
 {
+    public function __construct($service = '', $stream = '')
+    {
 
+    }
+
+    public function unpack()
+    {
+
+    }
 }
