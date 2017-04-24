@@ -12,6 +12,7 @@ use Swoole\Server;
  */
 class ContainerServer
 {
+    protected $connections = [];
     public function __construct($host = '', $port = '')
     {
         $this->server = new Server($host, 0, SWOOLE_BASE);
@@ -30,8 +31,12 @@ class ContainerServer
         $this->server->on('WorkerStart', [$this, 'onWorkerStart']);
     }
 
-    public function onConnect()
+    public function onConnect($server, $fd, $fromId)
     {
+        $connection = new ClientConnection();
+        $fdInfo = $server->connection_info($fd);
+        var_dump($fdInfo);
+        $this->connections[$fd] = $connection;
         echo 1 . PHP_EOL;
     }
 
