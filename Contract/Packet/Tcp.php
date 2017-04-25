@@ -9,9 +9,15 @@
 namespace Showin\Contract\Packet;
 
 
-class Tcp
+class Tcp extends AbstractPacket
 {
-    public function __construct($service = '', $stream = '')
+    public function setName(string $name): AbstractPacket
+    {
+        parent::setName($name);
+        return parent::setService(crc32($name));
+    }
+
+    public function pack()
     {
 
     }

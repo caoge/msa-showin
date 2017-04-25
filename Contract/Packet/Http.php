@@ -9,7 +9,7 @@
 namespace Showin\Contract\Packet;
 
 
-class Http
+class Http extends AbstractPacket
 {
 
 }

@@ -6,10 +6,10 @@
  * Time: 下午11:11
  */
 
-namespace Showin\Contract\Format;
+namespace Showin\Contract\Parser;
 
 
-interface IFormatInterface
+interface IParserInterface
 {
     public function decode($data);
 
@@ -17,7 +17,7 @@ interface IFormatInterface
 
     public function getData(): array;
 
-    public function setData($data);
+    public function setData(array $data);
 
     public function getType(): string;
 

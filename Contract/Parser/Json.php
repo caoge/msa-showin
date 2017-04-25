@@ -6,9 +6,9 @@
  * Time: 下午4:17
  */
 
-namespace Showin\Contract\Format;
+namespace Showin\Contract\Parser;
 
-class Json implements IFormatInterface
+class Json implements IParserInterface
 {
     protected $data = [];
 
@@ -27,7 +27,10 @@ class Json implements IFormatInterface
         return $this->data;
     }
 
-    public function setData($data)
+    /**
+     * @param array $data
+     */
+    public function setData(array $data)
     {
         $this->data = $data;
     }

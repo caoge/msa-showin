@@ -6,10 +6,10 @@
  * Time: 下午4:18
  */
 
-namespace Showin\Contract\Format;
+namespace Showin\Contract\Parser;
 
 
-class Protobuf implements IFormatInterface
+class Protobuf implements IParserInterface
 {
 
 }
