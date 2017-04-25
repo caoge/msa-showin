@@ -33,7 +33,7 @@ class ContainerServer
 
     public function onConnect($server, $fd, $fromId)
     {
-        $connection = new ClientConnection();
+        $connection = new ClientConnection($server, $fd);
         $fdInfo = $server->connection_info($fd);
         var_dump($fdInfo);
         $this->connections[$fd] = $connection;
