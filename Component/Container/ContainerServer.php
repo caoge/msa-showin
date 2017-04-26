@@ -2,6 +2,7 @@
 
 namespace Showin\Component\Container;
 
+use Showin\Contract\Packet\Tcp;
 use Swoole\Server;
 
 /**
@@ -42,7 +43,8 @@ class ContainerServer
 
     public function onReceive($server, $fd, $fromId, $data)
     {
-
+        $tcpPacket = new Tcp();
+        $tcpPacket->unpack($data);
     }
 
     public function onClose()

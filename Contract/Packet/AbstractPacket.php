@@ -9,6 +9,8 @@
 namespace Showin\Contract\Packet;
 
 
+use Showin\Standard\Router;
+
 class AbstractPacket
 {
     /**
@@ -82,14 +84,14 @@ class AbstractPacket
     protected $dst = 0;
 
     /**
-     * @var array
+     * @var Router
      */
-    protected $routers = [];
+    protected $routers = null;
 
     /**
      * @var string
      */
-    protected $bodyStream = '';
+    protected $body = '';
 
     /**
      * @param int $len
@@ -224,24 +226,136 @@ class AbstractPacket
     }
 
     /**
-     * @param array $routers
+     * @param Router $routers
      *
      * @return AbstractPacket
      */
-    public function setRouters(array $routers): AbstractPacket
+    public function setRouters(Router $routers): AbstractPacket
     {
         $this->routers = $routers;
         return $this;
     }
 
     /**
-     * @param string $bodyStream
+     * @param string $body
      *
      * @return AbstractPacket
      */
-    public function setBodyStream(string $bodyStream): AbstractPacket
+    public function setBodyStream(string $body): AbstractPacket
     {
-        $this->bodyStream = $bodyStream;
+        $this->body = $body;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLen(): int
+    {
+        return $this->len;
+    }
+
+    /**
+     * @return string
+     */
+    public function getService(): string
+    {
+        return $this->service;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFlag(): int
+    {
+        return $this->flag;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTime(): int
+    {
+        return $this->time;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUniqid(): int
+    {
+        return $this->uniqid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAskId(): int
+    {
+        return $this->askId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCode(): int
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRouterCount(): int
+    {
+        return $this->routerCount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDstMode(): int
+    {
+        return $this->dstMode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDst(): int
+    {
+        return $this->dst;
+    }
+
+    /**
+     * @return Router
+     */
+    public function getRouters(): Router
+    {
+        return $this->routers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody(): string
+    {
+        return $this->body;
     }
 }

@@ -15,9 +15,9 @@ class Router
 
     protected $count = 0;
 
-    public function __construct()
+    public function __construct($routersList = [])
     {
-
+        $this->unserialize($routersList);
     }
 
     /**
@@ -27,7 +27,7 @@ class Router
      */
     public function getList(): array
     {
-
+        return $this->list;
     }
 
     /**
@@ -37,7 +37,7 @@ class Router
      */
     public function getCount(): int
     {
-
+        return $this->count;
     }
 
     /**

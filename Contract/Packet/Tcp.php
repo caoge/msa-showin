@@ -9,6 +9,8 @@
 namespace Showin\Contract\Packet;
 
 
+use Showin\Standard\Router;
+
 class Tcp extends AbstractPacket
 {
     public function setName(string $name): AbstractPacket
@@ -17,13 +19,24 @@ class Tcp extends AbstractPacket
         return parent::setService(crc32($name));
     }
 
-    public function pack()
+    public function setId(): AbstractPacket
+    {
+        return parent::setId(sprintf('%s-%s', dechex($this->getTime()), dechex($this->getUniqid())));
+    }
+
+    public function pack(array $data)
     {
 
     }
 
-    public function unpack()
+    public function unpack(string $stream)
     {
+        $data = unpack('nlen/nflag/Nservice/Ntime/Nuniqid/NaskId/ncode/nrouterCount', $stream);
 
+        foreach ($data as $key => $value) {
+            call_user_func(sprintf('set%s', strtoupper($key)), $value);
+        }
+        $this->setId();
+        $this->setRouters(new Router($data['routers_list']));
     }
 }
