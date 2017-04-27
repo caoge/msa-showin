@@ -32,4 +32,14 @@ class RegistryServer
     {
         $this->server->start();
     }
+
+    public function onRequest($request, $response)
+    {
+        var_dump($request);
+    }
+
+    public function onWorkerStart()
+    {
+
+    }
 }

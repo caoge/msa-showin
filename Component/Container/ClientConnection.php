@@ -9,9 +9,10 @@
 namespace Showin\Component\Container;
 
 use Showin\Contract\Packet\AbstractPacket;
+use Showin\Standard\Connection;
 use Swoole\Server;
 
-class ClientConnection
+class ClientConnection extends Connection
 {
     protected $server = null;
     protected $fd = 0;
@@ -29,6 +30,11 @@ class ClientConnection
     public function getContainer()
     {
 
+    }
+
+    public function connect()
+    {
+        // TODO: Implement connect() method.
     }
 
     public function send(AbstractPacket $packet)

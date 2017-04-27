@@ -12,4 +12,8 @@ namespace Showin\Config;
 class Common
 {
     const CONTRACT_CONTAINER_SERVICE_REGISTRY = 'Container.Service.Registry';
+
+    const HTTP_API_REGISTRY_KEEPLIVE = '/api/keeplive';
+
+    const HTTP_API_REGISTRY_GET_LIST = '/api/container/list';
 }

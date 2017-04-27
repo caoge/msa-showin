@@ -9,6 +9,8 @@
 namespace Showin\Standard;
 
 
+use Showin\Contract\Packet\AbstractPacket;
+
 abstract class Connection
 {
     const EVENT_CONNECT = 1;
@@ -16,7 +18,7 @@ abstract class Connection
     const EVENT_CLOSE = 3;
     const EVENT_ERROR = 4;
 
-    abstract public function send($data);
+    abstract public function send(AbstractPacket $packet);
 
     abstract public function close();
 
