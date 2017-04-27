@@ -41,7 +41,7 @@ class ContainerServer
         echo 1 . PHP_EOL;
     }
 
-    public function onReceive($server, $fd, $fromId, $data)
+    public function onReceive(Server $server, $fd, $fromId, $data)
     {
         $tcpPacket = new Tcp();
         $tcpPacket->unpack($data);
