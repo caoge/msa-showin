@@ -8,6 +8,7 @@
 
 namespace Showin\Component\Container;
 
+use Showin\Contract\Packet\AbstractPacket;
 use Swoole\Server;
 
 class ClientConnection
@@ -30,9 +31,9 @@ class ClientConnection
 
     }
 
-    public function send($data)
+    public function send(AbstractPacket $packet)
     {
-        $this->server->send($this->fd, $data);
+        $this->server->send($this->fd, $packet->getStream());
     }
 
     public function close()

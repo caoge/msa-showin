@@ -19,14 +19,20 @@ class Tcp extends AbstractPacket
         return parent::setService(crc32($name));
     }
 
-    public function setId(): AbstractPacket
+    public function pack(): string
     {
-        return parent::setId(sprintf('%s-%s', dechex($this->getTime()), dechex($this->getUniqid())));
-    }
-
-    public function pack(array $data)
-    {
-
+        $len = $routerBin = '';
+        return pack(
+                'nnNNNNnn',
+                $len,
+                $this->getFlag(),
+                $this->getService(),
+                $this->getTime(),
+                $this->getUniqid(),
+                $this->getAskId(),
+                $this->getCode(),
+                $this->getRouterCount()
+            ) . $routerBin . $this->getBody();
     }
 
     public function unpack(string $stream)
@@ -36,7 +42,12 @@ class Tcp extends AbstractPacket
         foreach ($data as $key => $value) {
             call_user_func(sprintf('set%s', strtoupper($key)), $value);
         }
-        $this->setId();
-        $this->setRouters(new Router($data['routers_list']));
+        $this->setId(sprintf('%s-%s', dechex($this->getTime()), dechex($this->getUniqid())));
+        $this->setRouter(new Router($data['routers_list']));
+    }
+
+    public function getStream(): string
+    {
+        return $this->pack();
     }
 }

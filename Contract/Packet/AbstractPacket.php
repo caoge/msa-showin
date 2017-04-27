@@ -11,7 +11,7 @@ namespace Showin\Contract\Packet;
 
 use Showin\Standard\Router;
 
-class AbstractPacket
+abstract class AbstractPacket
 {
     /**
      * 不包含自身的包头长度
@@ -44,7 +44,7 @@ class AbstractPacket
     /**
      *
      *
-     * @var int
+     * @var string
      */
     protected $id = 0;
 
@@ -86,7 +86,7 @@ class AbstractPacket
     /**
      * @var Router
      */
-    protected $routers = null;
+    protected $router = null;
 
     /**
      * @var string
@@ -138,11 +138,11 @@ class AbstractPacket
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return AbstractPacket
      */
-    public function setId(int $id): AbstractPacket
+    public function setId(string $id): AbstractPacket
     {
         $this->id = $id;
         return $this;
@@ -226,13 +226,13 @@ class AbstractPacket
     }
 
     /**
-     * @param Router $routers
+     * @param Router $router
      *
      * @return AbstractPacket
      */
-    public function setRouters(Router $routers): AbstractPacket
+    public function setRouter(Router $router): AbstractPacket
     {
-        $this->routers = $routers;
+        $this->router = $router;
         return $this;
     }
 
@@ -241,7 +241,7 @@ class AbstractPacket
      *
      * @return AbstractPacket
      */
-    public function setBodyStream(string $body): AbstractPacket
+    public function setBody(string $body): AbstractPacket
     {
         $this->body = $body;
         return $this;
@@ -280,9 +280,9 @@ class AbstractPacket
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -346,9 +346,9 @@ class AbstractPacket
     /**
      * @return Router
      */
-    public function getRouters(): Router
+    public function getRouter(): Router
     {
-        return $this->routers;
+        return $this->router;
     }
 
     /**
@@ -358,4 +358,9 @@ class AbstractPacket
     {
         return $this->body;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function getStream(): string;
 }
