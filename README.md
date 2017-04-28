@@ -1,5 +1,10 @@
 # msa-showin
 
+## 依赖
+
+* PHP>=7.1
+* SWOOLE>=2.0.7
+
 ## 功能
 
 > addTimer
@@ -29,3 +34,9 @@
 ## 注意
 
 > 文件锁
+
+## 开发支持
+
+> swoole：https://github.com/swoole/swoole-src
+
+> swoole IDE支持：https://github.com/eaglewu/swoole-ide-helper

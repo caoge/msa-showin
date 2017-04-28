@@ -2,6 +2,7 @@
 
 namespace Showin\Component\Registry;
 
+use Showin\Config\Common;
 use Showin\Contract\Packet\Http as HttpPacket;
 use Showin\Contract\Parser\Json;
 use Showin\Net\Connection\Http as HttpConnection;
@@ -41,6 +42,18 @@ class RegistryServer
     public function onRequest(Request $request, Response $response)
     {
         var_dump($request, $response);
+
+        $uri = $request->server['request_uri'];
+
+        switch ($uri) {
+            case Common::HTTP_API_REGISTRY_KEEPLIVE:
+
+                break;
+            case Common::HTTP_API_REGISTRY_GET_LIST:
+
+                break;
+        }
+
 
         $httpConnection = new HttpConnection($response);
         $packet = new HttpPacket();
