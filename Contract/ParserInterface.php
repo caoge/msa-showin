@@ -6,10 +6,10 @@
  * Time: 下午11:11
  */
 
-namespace Showin\Contract\Parser;
+namespace Showin\Contract;
 
 
-interface IParserInterface
+interface ParserInterface
 {
     public function decode($data);
 

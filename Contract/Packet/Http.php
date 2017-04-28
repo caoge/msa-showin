@@ -9,7 +9,9 @@
 namespace Showin\Contract\Packet;
 
 
-class Http extends AbstractPacket
+use Showin\Contract\Packet;
+
+class Http extends Packet
 {
 
 }

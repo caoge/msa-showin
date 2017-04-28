@@ -8,7 +8,9 @@
 
 namespace Showin\Contract\Parser;
 
-class Json implements IParserInterface
+use Showin\Contract\ParserInterface;
+
+class Json implements ParserInterface
 {
     protected $data = [];
 

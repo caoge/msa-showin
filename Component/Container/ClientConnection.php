@@ -8,7 +8,7 @@
 
 namespace Showin\Component\Container;
 
-use Showin\Contract\Packet\AbstractPacket;
+use Showin\Contract\Packet;
 use Showin\Standard\Connection;
 use Swoole\Server;
 
@@ -37,7 +37,7 @@ class ClientConnection extends Connection
         // TODO: Implement connect() method.
     }
 
-    public function send(AbstractPacket $packet)
+    public function send(Packet $packet)
     {
         $this->server->send($this->fd, $packet->getStream());
     }

@@ -9,11 +9,12 @@
 namespace Showin\Contract\Packet;
 
 
+use Showin\Contract\Packet;
 use Showin\Standard\Router;
 
-class Tcp extends AbstractPacket
+class Tcp extends Packet
 {
-    public function setName(string $name): AbstractPacket
+    public function setName(string $name): Packet
     {
         parent::setName($name);
         return parent::setService(crc32($name));

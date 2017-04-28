@@ -2,16 +2,15 @@
 /**
  * User: Blink
  * Email: caogemail@163.com
- * Date: 2017/4/26
- * Time: 上午1:08
+ * Date: 2017/4/28
+ * Time: 下午3:14
  */
 
-namespace Showin\Contract\Packet;
-
+namespace Showin\Contract;
 
 use Showin\Standard\Router;
 
-abstract class AbstractPacket
+abstract class Packet
 {
     /**
      * 不包含自身的包头长度
@@ -96,9 +95,9 @@ abstract class AbstractPacket
     /**
      * @param int $len
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setLen(int $len): AbstractPacket
+    public function setLen(int $len): Packet
     {
         $this->len = $len;
         return $this;
@@ -107,9 +106,9 @@ abstract class AbstractPacket
     /**
      * @param string $service
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setService(string $service): AbstractPacket
+    public function setService(string $service): Packet
     {
         $this->service = $service;
         return $this;
@@ -118,9 +117,9 @@ abstract class AbstractPacket
     /**
      * @param string $name
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setName(string $name): AbstractPacket
+    public function setName(string $name): Packet
     {
         $this->name = $name;
         return $this;
@@ -129,9 +128,9 @@ abstract class AbstractPacket
     /**
      * @param int $flag
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setFlag(int $flag): AbstractPacket
+    public function setFlag(int $flag): Packet
     {
         $this->flag = $flag;
         return $this;
@@ -140,9 +139,9 @@ abstract class AbstractPacket
     /**
      * @param string $id
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setId(string $id): AbstractPacket
+    public function setId(string $id): Packet
     {
         $this->id = $id;
         return $this;
@@ -151,9 +150,9 @@ abstract class AbstractPacket
     /**
      * @param int $time
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setTime(int $time): AbstractPacket
+    public function setTime(int $time): Packet
     {
         $this->time = $time;
         return $this;
@@ -162,9 +161,9 @@ abstract class AbstractPacket
     /**
      * @param int $uniqid
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setUniqid(int $uniqid): AbstractPacket
+    public function setUniqid(int $uniqid): Packet
     {
         $this->uniqid = $uniqid;
         return $this;
@@ -173,9 +172,9 @@ abstract class AbstractPacket
     /**
      * @param int $askId
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setAskId(int $askId): AbstractPacket
+    public function setAskId(int $askId): Packet
     {
         $this->askId = $askId;
         return $this;
@@ -184,9 +183,9 @@ abstract class AbstractPacket
     /**
      * @param int $code
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setCode(int $code): AbstractPacket
+    public function setCode(int $code): Packet
     {
         $this->code = $code;
         return $this;
@@ -195,9 +194,9 @@ abstract class AbstractPacket
     /**
      * @param int $routerCount
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setRouterCount(int $routerCount): AbstractPacket
+    public function setRouterCount(int $routerCount): Packet
     {
         $this->routerCount = $routerCount;
         return $this;
@@ -206,9 +205,9 @@ abstract class AbstractPacket
     /**
      * @param int $dstMode
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setDstMode(int $dstMode): AbstractPacket
+    public function setDstMode(int $dstMode): Packet
     {
         $this->dstMode = $dstMode;
         return $this;
@@ -217,9 +216,9 @@ abstract class AbstractPacket
     /**
      * @param int $dst
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setDst(int $dst): AbstractPacket
+    public function setDst(int $dst): Packet
     {
         $this->dst = $dst;
         return $this;
@@ -228,9 +227,9 @@ abstract class AbstractPacket
     /**
      * @param Router $router
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setRouter(Router $router): AbstractPacket
+    public function setRouter(Router $router): Packet
     {
         $this->router = $router;
         return $this;
@@ -239,9 +238,9 @@ abstract class AbstractPacket
     /**
      * @param string $body
      *
-     * @return AbstractPacket
+     * @return Packet
      */
-    public function setBody(string $body): AbstractPacket
+    public function setBody(string $body): Packet
     {
         $this->body = $body;
         return $this;
