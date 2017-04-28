@@ -93,6 +93,11 @@ abstract class Packet
     protected $body = '';
 
     /**
+     * @var Parser
+     */
+    protected $bodyParser = null;
+
+    /**
      * @param int $len
      *
      * @return Packet
@@ -247,6 +252,17 @@ abstract class Packet
     }
 
     /**
+     * @param Parser $bodyParser
+     *
+     * @return Packet
+     */
+    public function setBodyParser(Parser $bodyParser): Packet
+    {
+        $this->bodyParser = $bodyParser;
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getLen(): int
@@ -356,6 +372,14 @@ abstract class Packet
     public function getBody(): string
     {
         return $this->body;
+    }
+
+    /**
+     * @return Parser
+     */
+    public function getBodyParser(): Parser
+    {
+        return $this->bodyParser;
     }
 
     /**

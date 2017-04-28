@@ -9,9 +9,9 @@
 namespace Showin\Contract\Parser;
 
 
-use Showin\Contract\ParserInterface;
+use Showin\Contract\Parser;
 
-class Protobuf implements ParserInterface
+class Protobuf extends Parser
 {
 
 }

@@ -8,9 +8,10 @@
 
 namespace Showin\Contract\Parser;
 
-use Showin\Contract\ParserInterface;
 
-class Json implements ParserInterface
+use Showin\Contract\Parser;
+
+class Json extends Parser
 {
     protected $data = [];
 

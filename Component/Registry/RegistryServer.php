@@ -2,7 +2,12 @@
 
 namespace Showin\Component\Registry;
 
+use Showin\Contract\Packet\Http as HttpPacket;
+use Showin\Contract\Parser\Json;
+use Showin\Net\Connection\Http as HttpConnection;
 use Swoole\Http\Server;
+use Swoole\Http\Response;
+use Swoole\Http\Request;
 
 /**
  * User: Blink
@@ -33,13 +38,23 @@ class RegistryServer
         $this->server->start();
     }
 
-    public function onRequest($request, $response)
+    public function onRequest(Request $request, Response $response)
     {
         var_dump($request, $response);
+
+        $httpConnection = new HttpConnection($response);
+        $packet = new HttpPacket();
+        $parser = new Json();
+
+
+        $parser->setData(['cd' => 1]);
+
+        $packet->setCode(200);
+        $packet->setBodyParser($parser);
+        $httpConnection->send($packet);
+
         $ip = $request->server['remote_addr'];
         $port = $request->server['remote_port'];
-        $response->write('hello world');
-        $response->end();
     }
 
     public function onWorkerStart()

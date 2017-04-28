@@ -9,7 +9,7 @@
 namespace Showin\Contract;
 
 
-abstract class Parser
+abstract class Parser implements ParserInterface
 {
 
 }
