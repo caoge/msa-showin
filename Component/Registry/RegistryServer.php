@@ -47,9 +47,12 @@ class RegistryServer
         $parser = new Json();
 
 
-        $parser->setData(['cd' => 1]);
+        $parser->setData([
+            'code'    => 0,
+            'message' => '操作成功',
+            'data'    => ['cd' => 1]
+        ]);
 
-        $packet->setCode(200);
         $packet->setBodyParser($parser);
         $httpConnection->send($packet);
 

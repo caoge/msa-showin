@@ -15,9 +15,6 @@ class Http extends Packet
 {
     public function getStream(): string
     {
-        return json_encode([
-            'code' => $this->getCode(),
-            'data' => $this->getBodyParser()->getData()
-        ]);
+        return $this->getBodyParser()->encode();
     }
 }
