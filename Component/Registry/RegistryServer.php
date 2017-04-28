@@ -35,7 +35,11 @@ class RegistryServer
 
     public function onRequest($request, $response)
     {
-        var_dump($request);
+        var_dump($request, $response);
+        $ip = $request->server['remote_addr'];
+        $port = $request->server['remote_port'];
+        $response->write('hello world');
+        $response->end();
     }
 
     public function onWorkerStart()
