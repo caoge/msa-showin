@@ -9,7 +9,7 @@
 namespace Showin\Component\Container;
 
 use Showin\Contract\Packet;
-use Showin\Standard\Connection;
+use Showin\Net\Connection;
 use Swoole\Server;
 
 class ClientConnection extends Connection

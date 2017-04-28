@@ -6,7 +6,7 @@
  * Time: 下午9:37
  */
 
-namespace Showin\Standard;
+namespace Showin\Net;
 
 
 use Showin\Contract\Packet;
