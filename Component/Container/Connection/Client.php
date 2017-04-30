@@ -6,13 +6,13 @@
  * Time: 下午10:11
  */
 
-namespace Showin\Component\Container;
+namespace Showin\Component\Container\Connection;
 
 use Showin\Contract\Packet;
 use Showin\Net\Connection;
 use Swoole\Server;
 
-class ClientConnection extends Connection
+class Client extends Connection
 {
     protected $server = null;
     protected $fd = 0;
@@ -32,9 +32,14 @@ class ClientConnection extends Connection
 
     }
 
+    public function set()
+    {
+
+    }
+
     public function connect()
     {
-        // TODO: Implement connect() method.
+
     }
 
     public function send(Packet $packet)

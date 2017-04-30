@@ -2,6 +2,8 @@
 
 namespace Showin\Component\Container;
 
+use Showin\Component\Container\Connection\Client;
+use Showin\Component\Container\Connection\Discovery;
 use Showin\Contract\Packet\Tcp as TcpPacket;
 use Swoole\Server;
 
@@ -14,8 +16,14 @@ use Swoole\Server;
 class ContainerServer
 {
     protected $connections = [];
-    public function __construct($host = '', $port = '')
+
+    protected $client = null;
+
+    protected $port = 0;
+
+    public function __construct(string $host = '', int $port = 0)
     {
+        $this->port = $port;
         $this->server = new Server($host, 0, SWOOLE_BASE);
         $this->server->set([
             'open_length_check'     => true,
@@ -24,7 +32,7 @@ class ContainerServer
             'package_body_offset'   => 2,
             'package_max_length'    => 1024 * 10
         ]);
-        $this->server->listen('0.0.0.0', $port, SWOOLE_SOCK_TCP);
+        $this->server->listen('0.0.0.0', $this->port, SWOOLE_SOCK_TCP);
 
         $this->server->on('connect', [$this, 'onConnect']);
         $this->server->on('receive', [$this, 'onReceive']);
@@ -34,11 +42,11 @@ class ContainerServer
 
     public function onConnect($server, $fd, $fromId)
     {
-        $connection = new ClientConnection($server, $fd);
-        $fdInfo = $server->connection_info($fd);
-        var_dump($fdInfo);
-        $this->connections[$fd] = $connection;
-        echo 1 . PHP_EOL;
+//        $connection = new ClientConnection($server, $fd);
+//        $fdInfo = $server->connection_info($fd);
+//        var_dump($fdInfo);
+//        $this->connections[$fd] = $connection;
+//        echo 1 . PHP_EOL;
     }
 
     public function onReceive(Server $server, $fd, $fromId, $data)
@@ -54,9 +62,10 @@ class ContainerServer
 
     public function onWorkerStart()
     {
-        // 定时器发送心跳包给注册中心
+        $discovery = new Discovery();
+        $discovery->tick($this->port);
 
-        // 定时器获取在线容器列表
+        $this->client = new Client();
     }
 
     public function start()
