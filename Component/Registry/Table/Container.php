@@ -28,18 +28,57 @@ class Container
         $this->table->create();
     }
 
-    public function getTable()
+    /**
+     * 获取容器共享内存表
+     *
+     * @return Table
+     */
+    public function getTable(): Table
     {
         return $this->table;
     }
 
-    public function getKey($ip, $port)
+    /**
+     * 获取容器表key
+     *
+     * @param string $ip
+     * @param int $port
+     *
+     * @return string
+     */
+    public function getKey(string $ip, int $port): string
     {
         return sprintf('%d:%d', ip2long($ip), $port);
     }
 
-    public function remove()
+    /**
+     * 获取在线容器列表
+     * 
+     * @return array
+     */
+    public function getList(): array 
     {
+        $list = [];
+        foreach ($this->table as $value) {
+            $list[] = [
+                'ip'   => long2ip($value['ip']),
+                'port' => $value['port']
+            ];
+        }
+        return $list;
+    }
 
+    /**
+     * 定时删除未发送心跳的容器
+     */
+    public function tick()
+    {
+        swoole_timer_tick(10000, function () {
+            foreach ($this->table as $key => $value) {
+                if (time() - $value['last'] > $value['ttl']) {
+                    $this->table->del($key);
+                }
+            }
+        }, $this->table);
     }
 }

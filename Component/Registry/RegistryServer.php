@@ -10,7 +10,6 @@ use Showin\Net\Connection\Http as HttpConnection;
 use Swoole\Http\Server;
 use Swoole\Http\Response;
 use Swoole\Http\Request;
-use Swoole\Table;
 
 /**
  * User: Blink
@@ -21,9 +20,9 @@ use Swoole\Table;
 class RegistryServer
 {
     /**
-     * @var Table
+     * @var Container
      */
-    protected $table = null;
+    protected $tableContainer = null;
 
     public function __construct($host = '', $port = '')
     {
@@ -39,8 +38,6 @@ class RegistryServer
 
         $this->server->on('Request', [$this, 'onRequest']);
         $this->server->on('WorkerStart', [$this, 'onWorkerStart']);
-
-        //
     }
 
     public function start()
@@ -51,7 +48,7 @@ class RegistryServer
     public function onRequest(Request $request, Response $response)
     {
         $parser = new Json();
-        $api = new Api($request, $response, $this->table);
+        $api = new Api($request, $response, $this->tableContainer);
         $parser->setData($api->getData());
 
         $httpConnection = new HttpConnection($response);
@@ -63,10 +60,9 @@ class RegistryServer
     public function onWorkerStart()
     {
         // 最多支持1024个容器
-        $table = new Container();
-        $this->table = $table->getTable();
+        $this->tableContainer = new Container();
 
-        // 开启定时器，检查容器
-
+        // 开启定时器
+        $this->tableContainer->tick();
     }
 }

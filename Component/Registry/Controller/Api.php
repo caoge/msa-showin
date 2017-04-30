@@ -9,11 +9,10 @@
 namespace Showin\Component\Registry\Controller;
 
 
-use Showin\Component\Registry\RegistryServer;
+use Showin\Component\Registry\Table\Container;
 use Showin\Config\Registry;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
-use Swoole\Table;
 
 class Api
 {
@@ -23,15 +22,15 @@ class Api
     protected $request = null;
 
     /**
-     * @var null|Table
+     * @var null|Container
      */
-    protected $table = null;
+    protected $containerTable = null;
 
-    public function __construct(Request $request, Response $response, Table $table)
+    public function __construct(Request $request, Response $response, Container $containerTable)
     {
         $this->request = $request;
         $this->response = $response;
-        $this->table = $table;
+        $this->containerTable = $containerTable;
     }
 
     public function keeplive()
@@ -39,23 +38,37 @@ class Api
         $ip = $this->request->server['remote_addr'];
         $port = $this->request->server['remote_port'];
 
-        if ($this->table->get()) {
-
-        }
+        $table = $this->containerTable->getTable();
+        $key = $this->containerTable->getKey($ip, $port);
+        $table->set($key, [
+            'ip'   => ip2long($ip),
+            'port' => $port,
+            'ttl'  => 20,
+            'last' => time()
+        ]);
 
         return [
-            'code'    => 0
+            'code' => 0
         ];
     }
 
-    public function getContainer()
+    public function getContainerList()
     {
-
+        return [
+            'code' => 0,
+            'data' => $this->containerTable->getList()
+        ];
     }
 
     public function getIp()
     {
-
+        return [
+            'code' => 0,
+            'data' => [
+                'ip'   => $this->request->server['remote_addr'],
+                'port' => $this->request->server['remote_port']
+            ]
+        ];
     }
 
     public function getData()
@@ -66,7 +79,7 @@ class Api
                 return $this->keeplive();
                 break;
             case Registry::API_GET_CONTAINER:
-                return $this->getContainer();
+                return $this->getContainerList();
                 break;
             default:
                 return ['code' => 404, 'data' => []];
