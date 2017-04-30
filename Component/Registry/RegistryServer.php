@@ -2,13 +2,15 @@
 
 namespace Showin\Component\Registry;
 
-use Showin\Config\Common;
+use Showin\Component\Registry\Controller\Api;
+use Showin\Component\Registry\Table\Container;
 use Showin\Contract\Packet\Http as HttpPacket;
 use Showin\Contract\Parser\Json;
 use Showin\Net\Connection\Http as HttpConnection;
 use Swoole\Http\Server;
 use Swoole\Http\Response;
 use Swoole\Http\Request;
+use Swoole\Table;
 
 /**
  * User: Blink
@@ -18,6 +20,11 @@ use Swoole\Http\Request;
  */
 class RegistryServer
 {
+    /**
+     * @var Table
+     */
+    protected $table = null;
+
     public function __construct($host = '', $port = '')
     {
         $this->server = new Server($host, $port, SWOOLE_BASE);
@@ -32,6 +39,8 @@ class RegistryServer
 
         $this->server->on('Request', [$this, 'onRequest']);
         $this->server->on('WorkerStart', [$this, 'onWorkerStart']);
+
+        //
     }
 
     public function start()
@@ -41,40 +50,23 @@ class RegistryServer
 
     public function onRequest(Request $request, Response $response)
     {
-        var_dump($request, $response);
-
-        $uri = $request->server['request_uri'];
-
-        switch ($uri) {
-            case Common::HTTP_API_REGISTRY_KEEPLIVE:
-
-                break;
-            case Common::HTTP_API_REGISTRY_GET_LIST:
-
-                break;
-        }
-
+        $parser = new Json();
+        $api = new Api($request, $response, $this->table);
+        $parser->setData($api->getData());
 
         $httpConnection = new HttpConnection($response);
         $packet = new HttpPacket();
-        $parser = new Json();
-
-
-        $parser->setData([
-            'code'    => 0,
-            'message' => '操作成功',
-            'data'    => ['cd' => 1]
-        ]);
-
         $packet->setBodyParser($parser);
         $httpConnection->send($packet);
-
-        $ip = $request->server['remote_addr'];
-        $port = $request->server['remote_port'];
     }
 
     public function onWorkerStart()
     {
+        // 最多支持1024个容器
+        $table = new Container();
+        $this->table = $table->getTable();
+
+        // 开启定时器，检查容器
 
     }
 }

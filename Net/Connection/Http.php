@@ -27,7 +27,6 @@ class Http extends Connection
 
     public function send(Packet $packet)
     {
-        $this->response->status(200);
         $this->response->end($packet->getStream());
     }
 
