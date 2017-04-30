@@ -26,6 +26,13 @@ class Api
      */
     protected $containerTable = null;
 
+    /**
+     * Api constructor.
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param Container $containerTable
+     */
     public function __construct(Request $request, Response $response, Container $containerTable)
     {
         $this->request = $request;
@@ -33,6 +40,11 @@ class Api
         $this->containerTable = $containerTable;
     }
 
+    /**
+     * 接收容器心跳
+     *
+     * @return array
+     */
     public function keeplive()
     {
         $ip = $this->request->server['remote_addr'];
@@ -52,6 +64,11 @@ class Api
         ];
     }
 
+    /**
+     * 返回在线容器列表
+     *
+     * @return array
+     */
     public function getContainerList()
     {
         return [
@@ -60,6 +77,11 @@ class Api
         ];
     }
 
+    /**
+     * 返回容器IP端口
+     *
+     * @return array
+     */
     public function getIp()
     {
         return [
@@ -71,6 +93,11 @@ class Api
         ];
     }
 
+    /**
+     * 路由入口
+     *
+     * @return array
+     */
     public function getData()
     {
         $uri = $this->request->server['request_uri'];

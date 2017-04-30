@@ -54,7 +54,9 @@ class ContainerServer
 
     public function onWorkerStart()
     {
+        // 定时器发送心跳包给注册中心
 
+        // 定时器获取在线容器列表
     }
 
     public function start()

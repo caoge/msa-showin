@@ -18,6 +18,9 @@ class Container
      */
     protected $table = null;
 
+    /**
+     * Container constructor.
+     */
     public function __construct()
     {
         $this->table = new Table(1024);
