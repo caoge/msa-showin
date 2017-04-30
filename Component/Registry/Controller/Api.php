@@ -48,16 +48,9 @@ class Api
     public function keeplive()
     {
         $ip = $this->request->server['remote_addr'];
-        $port = $this->request->server['remote_port'];
+        $port = (int)$this->request->header['port'];
 
-        $table = $this->containerTable->getTable();
-        $key = $this->containerTable->getKey($ip, $port);
-        $table->set($key, [
-            'ip'   => ip2long($ip),
-            'port' => $port,
-            'ttl'  => 20,
-            'last' => time()
-        ]);
+        $this->containerTable->set($ip, $port);
 
         return [
             'code' => 0

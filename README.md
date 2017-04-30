@@ -35,6 +35,8 @@
 
 > 文件锁
 
+> 去中心化
+
 ## 开发支持
 
 > swoole：https://github.com/swoole/swoole-src

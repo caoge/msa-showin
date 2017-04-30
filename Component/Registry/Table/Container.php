@@ -55,6 +55,24 @@ class Container
     }
 
     /**
+     * 插入内存表
+     *
+     * @param string $ip
+     * @param int $port
+     *
+     * @return bool
+     */
+    public function set(string $ip, int $port): bool
+    {
+        return $this->table->set($this->getKey($ip, $port), [
+            'ip'   => ip2long($ip),
+            'port' => $port,
+            'ttl'  => 20,
+            'last' => time()
+        ]);
+    }
+
+    /**
      * 获取在线容器列表
      * 
      * @return array
