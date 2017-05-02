@@ -6,11 +6,17 @@
  * Time: 上午12:59
  */
 
-namespace Showin\Component\Container\Connection;
+namespace Showin\Component\Container\Cluster;
 
 
 use Swoole\Http\Client;
 
+/**
+ * 集群内容器发现
+ *
+ * Class Discovery
+ * @package Showin\Component\Container\Cluster
+ */
 class Discovery
 {
     protected $connections = [];
@@ -20,7 +26,6 @@ class Discovery
         // 定时器发送心跳包给注册中心
         swoole_timer_tick(3000, function () use ($port) {
             $client = new Client('127.0.0.1', 9500);
-
             $client->setHeaders([
                 'port' => $port
             ]);

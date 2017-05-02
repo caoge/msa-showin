@@ -37,6 +37,8 @@
 
 > 去中心化
 
+> 监听容器server的启动、连接、接收数据等事件
+
 ## 开发支持
 
 > swoole：https://github.com/swoole/swoole-src

@@ -2,7 +2,7 @@
 
 namespace Showin\Component\Container;
 
-use Showin\Component\Container\Connection\Discovery;
+use Showin\Component\Container\Cluster\Discovery;
 use Showin\Contract\Packet\Tcp as TcpPacket;
 use Swoole\Server;
 
