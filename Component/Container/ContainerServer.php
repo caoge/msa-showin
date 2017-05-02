@@ -2,7 +2,6 @@
 
 namespace Showin\Component\Container;
 
-use Showin\Component\Container\Connection\Client;
 use Showin\Component\Container\Connection\Discovery;
 use Showin\Contract\Packet\Tcp as TcpPacket;
 use Swoole\Server;
@@ -16,6 +15,8 @@ use Swoole\Server;
 class ContainerServer
 {
     protected $connections = [];
+
+    protected $discovery = null;
 
     protected $client = null;
 
@@ -43,10 +44,11 @@ class ContainerServer
     public function onConnect($server, $fd, $fromId)
     {
 //        $connection = new ClientConnection($server, $fd);
-//        $fdInfo = $server->connection_info($fd);
-//        var_dump($fdInfo);
+        $fdInfo = $server->connection_info($fd);
+        var_dump($fdInfo);
 //        $this->connections[$fd] = $connection;
 //        echo 1 . PHP_EOL;
+
     }
 
     public function onReceive(Server $server, $fd, $fromId, $data)
@@ -62,10 +64,10 @@ class ContainerServer
 
     public function onWorkerStart()
     {
-        $discovery = new Discovery();
-        $discovery->tick($this->port);
+        // 由discovery监听
+        $this->discovery = new Discovery();
+        $this->discovery->tick($this->port);
 
-        $this->client = new Client();
     }
 
     public function start()
