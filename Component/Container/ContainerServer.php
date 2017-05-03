@@ -20,7 +20,7 @@ class ContainerServer
 
     protected $client = null;
 
-    protected $port = 0;
+    public $port = 0;
 
     public function __construct(string $host = '', int $port = 0)
     {
@@ -64,10 +64,8 @@ class ContainerServer
 
     public function onWorkerStart()
     {
-        // 由discovery监听
-        $this->discovery = new Discovery();
-        $this->discovery->tick($this->port);
-
+        $this->discovery = new Discovery($this);
+        $this->discovery->start();
     }
 
     public function start()

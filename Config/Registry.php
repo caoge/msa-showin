@@ -16,4 +16,6 @@ class Registry
     const API_KEEPLIVE = '/api/keeplive';
 
     const API_GET_CONTAINER = '/api/container/list';
+
+    const API_GET_IP = '/api/ip';
 }

@@ -9,6 +9,8 @@
 namespace Showin\Component\Container\Cluster;
 
 
+use Showin\Component\Container\ContainerServer;
+use Showin\Config\Registry;
 use Swoole\Http\Client;
 
 /**
@@ -19,23 +21,48 @@ use Swoole\Http\Client;
  */
 class Discovery
 {
+    protected $server = null;
+
+    protected $serverId = 0;
+
     protected $connections = [];
+
+    public function __construct(ContainerServer $server)
+    {
+        $this->server = $server;
+    }
 
     public function tick(int $port = 0)
     {
+        $port = $this->server->port;
         // 定时器发送心跳包给注册中心
         swoole_timer_tick(3000, function () use ($port) {
             $client = new Client('127.0.0.1', 9500);
             $client->setHeaders([
                 'port' => $port
             ]);
-            $client->get('/api/keeplive', [$this, 'onKeeplive']);
+            $client->get(Registry::API_KEEPLIVE, [$this, 'onKeeplive']);
         });
 
         // 定时器获取在线容器列表
         swoole_timer_tick(5000, function () {
             $client = new Client('127.0.0.1', 9500);
-            $client->get('/api/container/list', [$this, 'onGetContainerList']);
+            $client->get(Registry::API_GET_CONTAINER, [$this, 'onGetContainerList']);
+        });
+    }
+
+    public function start()
+    {
+        $this->setServerId();
+        $this->tick();
+    }
+
+    public function setServerId()
+    {
+        $client = new Client('127.0.0.1', 9500);
+        $client->get(Registry::API_GET_IP, function ($client) {
+            $ret = json_decode($client->body, true);
+            $this->serverId = $this->generateServerId($ret['data']['ip'], $ret['data']['port']);
         });
     }
 
@@ -46,7 +73,14 @@ class Discovery
 
     public function onGetContainerList($client)
     {
-        echo "Length: " . strlen($client->body) . PHP_EOL;
+        $ret = json_decode($client->body, true);
+
         echo $client->body . PHP_EOL;
+        echo $this->serverId . PHP_EOL;
+    }
+
+    public function generateServerId(string $ip, int $port)
+    {
+        return sprintf('%5d', crc32(sprintf('%s%d', $ip, $port)));
     }
 }

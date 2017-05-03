@@ -101,6 +101,9 @@ class Api
             case Registry::API_GET_CONTAINER:
                 return $this->getContainerList();
                 break;
+            case Registry::API_GET_IP:
+                return $this->getIp();
+                break;
             default:
                 return ['code' => 404, 'data' => []];
                 break;
