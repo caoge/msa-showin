@@ -9,12 +9,13 @@
 namespace Showin\Component\Container\Cluster;
 
 
+use Showin\Component\Container\Connection\Container;
 use Showin\Component\Container\ContainerServer;
 use Showin\Config\Registry;
 use Swoole\Http\Client;
 
 /**
- * 集群内容器发现
+ * 集群容器发现
  *
  * Class Discovery
  * @package Showin\Component\Container\Cluster
@@ -53,6 +54,7 @@ class Discovery
 
     public function start()
     {
+        new Container();
         $this->setServerId();
         $this->tick();
     }

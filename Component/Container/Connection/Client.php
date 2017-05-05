@@ -27,6 +27,21 @@ class Client extends Connection
 
     }
 
+    public function addContainer()
+    {
+
+    }
+
+    public function addProxy()
+    {
+
+    }
+
+    public function addService()
+    {
+
+    }
+
     public function getContainer()
     {
 

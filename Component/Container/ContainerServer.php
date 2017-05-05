@@ -66,6 +66,7 @@ class ContainerServer
     {
         $this->discovery = new Discovery($this);
         $this->discovery->start();
+
     }
 
     public function start()
