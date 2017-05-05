@@ -18,9 +18,39 @@ abstract class Connection
     const EVENT_CLOSE = 3;
     const EVENT_ERROR = 4;
 
+    protected $id = 0;
+
+    protected $ip = '0.0.0.0';
+
+    protected $port = 0;
+
     abstract public function send(Packet $packet);
 
     abstract public function close();
 
     abstract public function connect();
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIp(): string
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort(): int
+    {
+        return $this->port;
+    }
 }
