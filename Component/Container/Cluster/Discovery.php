@@ -54,7 +54,6 @@ class Discovery
 
     public function start()
     {
-//        $this->setServerId();
         $this->tick();
     }
 
@@ -63,9 +62,7 @@ class Discovery
         $client = new Client('127.0.0.1', 9500);
         $client->get(Registry::API_GET_IP, function ($client) {
             $ret = json_decode($client->body, true);
-
-
-            $this->serverId = $this->generateServerId($ret['data']['ip'], $ret['data']['port']);
+            // $ret['data']['ip'], $ret['data']['port']
         });
     }
 
@@ -76,9 +73,8 @@ class Discovery
 
     public function onGetContainerList($client)
     {
-        $ret = json_decode($client->body, true);
+        json_decode($client->body, true);
 
         echo $client->body . PHP_EOL;
-        echo $this->serverId . PHP_EOL;
     }
 }

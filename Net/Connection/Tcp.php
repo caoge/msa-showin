@@ -19,7 +19,7 @@ class Tcp extends Connection
     {
         $this->ip = $ip;
         $this->port = $port;
-        $this->id = Util::addressToId($ip, $port);
+//        $this->id = Util::addressToId($ip, $port);
     }
 
     public function connect()
