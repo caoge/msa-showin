@@ -1,0 +1,8 @@
+@startuml
+Container_1 -> Registry: 获取容器自己的对外IP
+Registry --> Container_1: 返回容器IP
+
+Container_1 -> Registry: 心跳
+Container_1 -> Registry: 获取在线容器列表
+Container_1 <-- Registry: 返回容器列表
+@enduml
