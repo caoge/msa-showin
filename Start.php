@@ -25,5 +25,9 @@ switch ($component) {
     case 'Registry':
         $server = new \Showin\Component\Registry\RegistryServer($host, $port);
         break;
+    default:
+        \Showin\Standard\Display::component();
+        exit;
+        break;
 }
 $server->start();
