@@ -12,7 +12,7 @@ class ProxyServer
 {
     public function __construct($host, $port)
     {
-        $this->server = new Server($host, $port, SWOOLE_BASE, SWOOLE_SOCK_TCP);
+        $this->server = new Server($host ? $host : '0.0.0.0', $port ? $port : 9501, SWOOLE_BASE, SWOOLE_SOCK_TCP);
         $this->server->set([
             'open_length_check'     => true,
             'package_length_type'   => 'n',

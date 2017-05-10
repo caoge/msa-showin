@@ -41,11 +41,11 @@ class ContainerServer
         $this->server->on('WorkerStart', [$this, 'onWorkerStart']);
     }
 
-    public function onConnect($server, $fd, $fromId)
+    public function onConnect(Server $server, $fd, $fromId)
     {
 //        $connection = new ClientConnection($server, $fd);
         $fdInfo = $server->connection_info($fd);
-        var_dump($fdInfo);
+        var_dump($fdInfo, $fromId);
 //        $this->connections[$fd] = $connection;
 //        echo 1 . PHP_EOL;
 
@@ -53,6 +53,7 @@ class ContainerServer
 
     public function onReceive(Server $server, $fd, $fromId, $data)
     {
+        var_dump($server, $fd, $fromId);
         $tcpPacket = new TcpPacket();
         $tcpPacket->unpack($data);
     }
