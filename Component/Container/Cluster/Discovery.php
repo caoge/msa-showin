@@ -9,7 +9,6 @@
 namespace Showin\Component\Container\Cluster;
 
 
-use Showin\Component\Container\Connection\Container;
 use Showin\Component\Container\ContainerServer;
 use Showin\Config\Registry;
 use Swoole\Http\Client;
@@ -33,7 +32,7 @@ class Discovery
         $this->server = $server;
     }
 
-    public function tick(int $port = 0)
+    public function tick()
     {
         $port = $this->server->port;
         // 定时器发送心跳包给注册中心
@@ -42,7 +41,7 @@ class Discovery
             $client->setHeaders([
                 'port' => $port
             ]);
-            $client->get(Registry::API_KEEPLIVE, [$this, 'onKeeplive']);
+            $client->get(Registry::API_KEEPLIVE, function () {});
         });
 
         // 定时器获取在线容器列表
@@ -66,14 +65,15 @@ class Discovery
         });
     }
 
-    public function onKeeplive()
-    {
-
-    }
-
     public function onGetContainerList($client)
     {
         json_decode($client->body, true);
+        
+        // 根据返回的容器列表，检查本地的连接
+
+        // 新增的容器，判断ID是否主动连接
+
+        // 失去心跳的容器，从连接里去除
 
         echo $client->body . PHP_EOL;
     }

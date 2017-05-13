@@ -47,7 +47,6 @@ class ContainerServer
         $fdInfo = $server->connection_info($fd);
         var_dump($fdInfo, $fromId);
 //        $this->connections[$fd] = $connection;
-//        echo 1 . PHP_EOL;
 
     }
 
