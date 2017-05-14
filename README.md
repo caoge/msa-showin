@@ -25,6 +25,8 @@
 
 > if后台可配置大部分配置
 
+> DB、Redis资源中间件，减少服务资源维护成本
+
 ## 业务包
 
 > Packet（Header、Router）
